@@ -11,7 +11,7 @@ file_name_to_source = {
 docs = []
 
 for file_name in file_names:
-    loader = TextLoader(f"documents/{file_name}") 
+    loader = TextLoader(f"documents/{file_name}", encoding="utf-8") 
     doc = loader.load()
     for d in doc:
         d.metadata = {"file_name": file_name, "source": file_name_to_source[file_name]}

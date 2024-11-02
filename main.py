@@ -1,12 +1,12 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI
 from RAG.graph import app as rag_app
 from RAG.compare_graph import app as compare_app
 
 app = FastAPI()
 
-from dotenv import load_dotenv
-
-load_dotenv()
 
 from fastapi.middleware.cors import CORSMiddleware
 
