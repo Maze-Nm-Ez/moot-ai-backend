@@ -25,7 +25,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 all_splits = text_splitter.split_documents(docs)
 
 from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
+# from langchain_openai import OpenAIEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # vectorstore = Chroma.from_documents(

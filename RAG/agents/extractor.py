@@ -4,7 +4,7 @@ from typing import Literal
 
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
 from langchain_mistralai import ChatMistralAI
 import os
 

@@ -2,7 +2,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
 from langchain_mistralai import ChatMistralAI
 import os
 

@@ -1,6 +1,6 @@
 from typing import Annotated, TypedDict
 from pydantic import BaseModel
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
 import os
 from langchain_mistralai import ChatMistralAI
 class TranslationInput(TypedDict):
