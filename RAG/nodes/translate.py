@@ -1,7 +1,8 @@
 from typing import Annotated, TypedDict
 from pydantic import BaseModel
 from langchain_openai import ChatOpenAI
-
+import os
+from langchain_mistralai import ChatMistralAI
 class TranslationInput(TypedDict):
     generation: str
     language: str
@@ -9,9 +10,13 @@ class TranslationInput(TypedDict):
 class TranslationOutput(TypedDict):
     translated_generation: str
 
+mistral_api_key = os.getenv("MISTRAL_API_KEY")
+if not mistral_api_key:
+    raise ValueError("MISTRAL_API_KEY environment variable not set")
+llm = ChatMistralAI(model="mistral-large-latest", api_key=os.getenv("MISTRAL_API_KEY"))
+
 def translate(state: Annotated[TranslationInput, "TranslationInput"]) -> TranslationOutput:
-    llm = ChatOpenAI(model="gpt-4o")
-    
+    #llm = ChatOpenAI(model="gpt-4o")    
     generation = state["generation"]
     target_language = state["language"]
 

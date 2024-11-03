@@ -3,6 +3,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
+from langchain_mistralai import ChatMistralAI
+import os
 
 class GradeHallucinations(BaseModel):
     """Binary score for hallucination present in generation answer."""
@@ -13,7 +15,11 @@ class GradeHallucinations(BaseModel):
 
 
 # LLM with function call
-llm = ChatOpenAI(model="gpt-4o")
+#llm = ChatOpenAI(model="gpt-4o")
+mistral_api_key = os.getenv("MISTRAL_API_KEY")
+if not mistral_api_key:
+    raise ValueError("MISTRAL_API_KEY environment variable not set")
+llm = ChatMistralAI(model="mistral-large-latest", api_key=os.getenv("MISTRAL_API_KEY"))
 structured_llm_grader = llm.with_structured_output(GradeHallucinations)
 
 # Prompt

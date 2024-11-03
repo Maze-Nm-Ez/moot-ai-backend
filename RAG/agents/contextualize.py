@@ -2,6 +2,8 @@ from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from pydantic import BaseModel  , Field
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
+from langchain_mistralai import ChatMistralAI
+import os
 
 class ContextualizeQuestion(BaseModel):
   """Contextualize the question."""
@@ -25,7 +27,11 @@ contextualize_q_system_prompt = (
     'If the input is not on english, translate it to english before contextualizing'
 )
 
-llm = ChatOpenAI(model="gpt-4o")
+#llm = ChatOpenAI(model="gpt-4o")
+mistral_api_key = os.getenv("MISTRAL_API_KEY")
+if not mistral_api_key:
+    raise ValueError("MISTRAL_API_KEY environment variable not set")
+llm = ChatMistralAI(model="mistral-large-latest", api_key=os.getenv("MISTRAL_API_KEY"))
 structured_llm_router = llm.with_structured_output(ContextualizeQuestion)
 
 contextualize_q_prompt = ChatPromptTemplate.from_messages(
