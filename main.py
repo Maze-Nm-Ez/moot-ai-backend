@@ -1,6 +1,9 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+import logging
+logging.basicConfig(level=logging.CRITICAL)
+
 from fastapi import FastAPI
 from RAG.graph import app as rag_app
 from RAG.compare_graph import app as compare_app

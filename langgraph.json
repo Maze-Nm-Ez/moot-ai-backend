@@ -1,0 +1,9 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "rag_graph": "./RAG/graph.py:app",
+    "compare_graph": "./RAG/compare_graph.py:app"
+  },
+  "env": "./.env",
+  "python_version": "3.11"
+}
