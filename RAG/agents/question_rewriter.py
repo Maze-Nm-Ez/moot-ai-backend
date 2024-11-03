@@ -10,7 +10,7 @@ import os
 mistral_api_key = os.getenv("MISTRAL_API_KEY")
 if not mistral_api_key:
     raise ValueError("MISTRAL_API_KEY environment variable not set")
-llm = ChatMistralAI(model="mistral-large-latest", api_key=os.getenv("MISTRAL_API_KEY"))
+llm = ChatMistralAI(model="mistral-small-latest", api_key=os.getenv("MISTRAL_API_KEY"))
 
 # Prompt
 system = """You a question re-writer that converts an input question to a better version that is optimized \n 
