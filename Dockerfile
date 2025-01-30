@@ -1,26 +1,20 @@
-# Build stage (optional for dependencies that need compilation)
-FROM python:3.9-slim AS builder
-
-WORKDIR /app
-
-COPY requirements.txt .
-RUN apt-get update && apt-get install -y --no-install-recommends build-essential \
-    && pip install --no-cache-dir -r requirements.txt \
-    && apt-get remove -y build-essential \
-    && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
-
-# Final stage
+# Use the official Python image from the Docker Hub
 FROM python:3.9-slim
 
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy dependencies from the builder
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-# Copy the application code
+# Install the required packages
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code into the container
 COPY . .
 
+# Expose the port the app runs on
 EXPOSE 8000
 
+# Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
