@@ -1,15 +1,17 @@
-### Router
+# Router
 
-from typing import Literal
-
+# from typing import Literal
+# import os
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 
-from langchain_mistralai import ChatMistralAI
-import os
+from langchain_openai import ChatOpenAI
 
 # Data model
+
+
 class ExtractQuery(BaseModel):
+
     """Route a user query to the relevant datasources with subquestions."""
 
     namal_vector_search_query: str = Field(
@@ -33,15 +35,13 @@ class ExtractQuery(BaseModel):
         description="The query to search the web.",
     )
 
-#llm = ChatOpenAI(model="gpt-4o")
-mistral_api_key = os.getenv("MISTRAL_API_KEY")
-if not mistral_api_key:
-    raise ValueError("MISTRAL_API_KEY environment variable not set")
-llm = ChatMistralAI(model="mistral-small-latest", api_key=os.getenv("MISTRAL_API_KEY"))
+
+llm = ChatOpenAI(model="gpt-4o-mini")
 structured_llm_router = llm.with_structured_output(ExtractQuery)
 
+
 # Prompt
-system = """You are an expert at routing a user question to a vectorstore or web search.
+SYSTEM = """You are an expert at routing a user question to a vectorstore or web search.
 There are three vectorstores. One contains documents related to Manifests of political candidate Sajith Premadasa.
 Another contains documents related to Manifests of political candidate Namal Rajapaksa.
 The third contains documents related to Manifests of political candidate Ranil Wickramasinghe. There is another
@@ -65,9 +65,10 @@ And the 'web_search_query': The query that needs to be searched from the web.
 """
 route_prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", system),
+        ("system", SYSTEM),
         ("human", "{question}"),
     ]
+
 )
 
 question_extractor = route_prompt | structured_llm_router

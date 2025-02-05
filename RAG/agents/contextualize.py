@@ -1,11 +1,14 @@
+import os
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from pydantic import BaseModel, Field
-from langchain_mistralai import ChatMistralAI
-import os
+from langchain_openai import OpenAI
+
 
 class ContextualizeQuestion(BaseModel):
     """Contextualize the question."""
-    contextualized_question: str = Field(..., description="The contextualized question.")
+    contextualized_question: str = Field(...,
+                                         description="The contextualized question.")
+
 
 contextualize_q_system_prompt = (
     "Given a chat history and the latest user question, "
@@ -19,16 +22,19 @@ contextualize_q_system_prompt = (
     "\nDo NOT answer the question, just reformulate it."
 )
 
-mistral_api_key = os.getenv("MISTRAL_API_KEY")
-if not mistral_api_key:
-    raise ValueError("MISTRAL_API_KEY environment variable not set")
-llm = ChatMistralAI(model="mistral-large-latest", api_key=os.getenv("MISTRAL_API_KEY"))
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY environment variable not set")
+
+llm = OpenAI(model="gpt-4o-mini",
+             api_key=os.getenv("OPENAI_API_KEY"))
 structured_llm_router = llm.with_structured_output(ContextualizeQuestion)
+
 
 contextualize_q_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", contextualize_q_system_prompt),
-        MessagesPlaceholder("chat_history") ,
+        MessagesPlaceholder("chat_history"),
         ("human", "{input}"),
     ]
 )
