@@ -38,10 +38,6 @@ all_splits = text_splitter.split_documents(docs)
 vectorstore = Chroma.from_documents(
     documents=all_splits, embedding=OpenAIEmbeddings(api_key=api_key), persist_directory="./vectore_stores/manifesto_vectorstore",
 )
-# embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-# vectorstore = Chroma.from_documents(
-#     documents=all_splits, embedding=embeddings, persist_directory="./vectore_stores/manifesto_vectorstore")
-# vectorstore.save_local("./vectore_stores/manifesto_vectorstore")
 
 namal_retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={
                                            "k": 6, "filter": {"source": "namal"}})
