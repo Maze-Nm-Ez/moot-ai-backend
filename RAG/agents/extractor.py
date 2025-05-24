@@ -58,8 +58,6 @@ Keep web search query empty if it is not required.
 
 After deciding,
 Output the 'namal_vector_search_query': The query that needs to be searched from the vector store of namal.
-And the 'ranil_vector_search_query': The query that needs to be searched from the vector store of ranil.
-And the 'sajith_vector_search_query': The query that needs to be searched from the vector store of sajith.
 And the 'anura_vector_search_query': The query that needs to be searched from the vector store of anura.
 And the 'web_search_query': The query that needs to be searched from the web.
 """
