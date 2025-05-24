@@ -14,11 +14,9 @@ load_dotenv()
 # Now you can access the API key
 api_key = os.getenv("OPENAI_API_KEY")
 
-file_names = ["namal.txt", "ranil.txt", "sajith.txt", "anura.txt"]
+file_names = ["namal.txt", "anura.txt"]
 file_name_to_source = {
     "namal.txt": "namal",
-    "ranil.txt": "ranil",
-    "sajith.txt": "sajith",
     "anura.txt": "anura",
 }
 docs = []

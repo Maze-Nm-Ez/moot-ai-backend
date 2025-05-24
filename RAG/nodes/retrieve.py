@@ -1,5 +1,5 @@
 from langchain.schema import Document
-from RAG.tools.vectore_store_retriever import sajith_retriever, namal_retriever, ranil_retriever, anura_retriever
+from RAG.tools.vectore_store_retriever import namal_retriever, anura_retriever
 
 
 def retrieve(state):
