@@ -1,5 +1,6 @@
 from RAG.agents.compare_generate import rag_chain
 
+
 def generate(state):
     """
     Generate answer
@@ -14,17 +15,13 @@ def generate(state):
     question = state["question"]
     web_documents = state["web_search_documents"]
     namal_vector_documents = state["namal_vector_search_documents"]
-    ranil_vector_documents = state["ranil_vector_search_documents"]
-    sajith_vector_documents = state["sajith_vector_search_documents"]
     anura_vector_documents = state["anura_vector_search_documents"]
 
     # RAG generation
     generation = rag_chain.invoke(
         {
             "web_context": web_documents,
-            "namal_context": namal_vector_documents, 
-            "ranil_context": ranil_vector_documents, 
-            "sajith_context": sajith_vector_documents, 
+            "namal_context": namal_vector_documents,
             "anura_context": anura_vector_documents,
             "question": question,
         }
@@ -32,7 +29,7 @@ def generate(state):
 
     generated_count = state.get("generated_count", 0) + 1
     return {
-        "question": question, 
+        "question": question,
         "generation": generation,
         "generated_count": generated_count,
     }

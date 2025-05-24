@@ -1,3 +1,7 @@
+from langchain_openai import OpenAIEmbeddings
+from langchain_chroma import Chroma
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import TextLoader
 import os
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
@@ -33,8 +37,6 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 all_splits = text_splitter.split_documents(docs)
 
-# from langchain_huggingface import HuggingFaceEmbeddings
-#
 vectorstore = Chroma.from_documents(
     documents=all_splits, embedding=OpenAIEmbeddings(api_key=api_key), persist_directory="./vectore_stores/manifesto_vectorstore",
 )
@@ -47,7 +49,3 @@ namal_retriever = vectorstore.as_retriever(search_type="similarity", search_kwar
                                            "k": 6, "filter": {"source": "namal"}})
 anura_retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={
                                            "k": 6, "filter": {"source": "anura"}})
-# sajith_retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={
-#                                             "k": 6, "filter": {"source": "sajith"}})
-# ranil_retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={
-#                                            "k": 6, "filter": {"source": "ranil"}})

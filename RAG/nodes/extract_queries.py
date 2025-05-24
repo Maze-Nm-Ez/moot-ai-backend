@@ -1,5 +1,6 @@
 from RAG.agents.extractor import question_extractor
 
+
 def extract_queries(state):
     """
     Extract queries for vector search and web search.
@@ -14,12 +15,10 @@ def extract_queries(state):
     print("---EXTRACT QUERIES---")
     question = state["question"]
     source = question_extractor.invoke({"question": question})
-    
+
     return {
-        "namal_vector_search_query": source.namal_vector_search_query, 
-        "ranil_vector_search_query": source.ranil_vector_search_query,
-        "sajith_vector_search_query": source.sajith_vector_search_query,
+        "namal_vector_search_query": source.namal_vector_search_query,
         "anura_vector_search_query": source.anura_vector_search_query,
         "web_search_query": source.web_search_query,
         "question": question
-        }
+    }

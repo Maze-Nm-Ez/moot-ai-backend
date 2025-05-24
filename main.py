@@ -1,33 +1,10 @@
-"""
-main.py
-
-This module serves as the entry point for the FastAPI application, integrating various
-components of the RAG (Retrieval-Augmented Generation) framework. It sets up the 
-FastAPI server, configures CORS middleware, and defines the main endpoint for 
-processing user queries through the RAG workflow.
-
-Key functionalities include:
-- Loading environment variables from a .env file.
-- Handling CORS for cross-origin requests.
-- Streaming responses from the RAG application based on user inputs.
-
-Dependencies:
-- FastAPI
-- dotenv
-- RAG components
-"""
-
-
-from pprint import pprint
-import logging
-import asyncio
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
 from dotenv import load_dotenv
+from fastapi import FastAPI
 from RAG.graph import app as rag_app
-logging.basicConfig(level=logging.CRITICAL)
+
 app = FastAPI()
+
 
 load_dotenv()
 

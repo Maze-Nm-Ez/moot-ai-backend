@@ -1,3 +1,4 @@
+from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph, START
 
 from RAG.graph_state import GraphState
@@ -24,10 +25,10 @@ workflow.add_node("translate", translate)  # Add the translate node
 
 workflow.add_edge(START, "contextualize")
 workflow.add_edge("contextualize", "extract queries")
-workflow.add_edge("extract queries", "web_search")
+# workflow.add_edge("extract queries", "web_search")
 workflow.add_edge("extract queries", "retrieve")
 
-workflow.add_edge(["web_search", "retrieve"], "generate")
+workflow.add_edge("retrieve", "generate")
 
 workflow.add_conditional_edges(
     "generate",
@@ -41,7 +42,6 @@ workflow.add_conditional_edges(
 
 workflow.add_edge("transform_query", "extract queries")
 
-from langgraph.checkpoint.memory import MemorySaver
 
 memory = MemorySaver()
 app = workflow.compile(checkpointer=memory)
