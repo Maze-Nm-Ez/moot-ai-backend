@@ -1,7 +1,7 @@
 import os
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from pydantic import BaseModel, Field
-from langchain_openai import OpenAI
+from langchain_openai import ChatOpenAI
 
 
 class ContextualizeQuestion(BaseModel):
@@ -26,8 +26,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     raise ValueError("OPENAI_API_KEY environment variable not set")
 
-llm = OpenAI(model="gpt-4o-mini",
-             api_key=os.getenv("OPENAI_API_KEY"))
+llm = ChatOpenAI(model="gpt-4o", api_key=os.getenv("OPENAI_API_KEY"))
 structured_llm_router = llm.with_structured_output(ContextualizeQuestion)
 
 
