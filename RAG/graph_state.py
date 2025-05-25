@@ -36,3 +36,22 @@ class GraphState(TypedDict):
 
     language: str
     translated_generation: str
+
+    # New keys for conditional edges
+    is_retrieval_relevant_and_sufficient: bool
+    is_ai_output_valid: bool
+    user_input: str  # Added for the first node
+    context: dict  # Added for context loading
+    query: str  # Added for the created query
+    retrieved_docs: list  # For retrieved documents
+    ai_response: str  # For AI generated response
+    fallback_info: str  # For retrieval failure
+    ai_error_fallback: str  # For AI generation failure
+    # For comprehensive evaluation
+    user_arg_score: float
+    ai_response_score: float
+    interaction_score: float
+    aggregated_score: float
+    flags: list
+    structured_feedback: str
+    final_response: str
